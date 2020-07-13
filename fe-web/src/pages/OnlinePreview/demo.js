@@ -1,13 +1,6 @@
 export default `
 ---
-__Advertisement :)__
-
-- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
-  resize in browser.
-- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
-  i18n with plurals support and easy syntax.
-
-You will like those projects!
+分割线
 
 ---
 
@@ -19,42 +12,18 @@ You will like those projects!
 ###### h6 Heading
 
 
-## Horizontal Rules
+## 分割线
 
 ___
 
----
-
-***
 
 
-## Typographic replacements
-
-Enable typographer option to see result.
-
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-test.. test... test..... test?..... test!....
-
-!!!!!! ???? ,,  -- ---
-
-"Smartypants, double quotes" and 'single quotes'
-
-
-## Emphasis
+## 粗体
 
 **This is bold text**
 
-__This is bold text__
 
-*This is italic text*
-
-_This is italic text_
-
-~~Strikethrough~~
-
-
-## Blockquotes
+## 引用
 
 
 > Blockquotes can also be nested...
@@ -62,7 +31,7 @@ _This is italic text_
 > > > ...or with spaces between arrows.
 
 
-## Lists
+## 列表
 
 Unordered
 
@@ -142,6 +111,10 @@ Right aligned columns
 [link with title](http://nodeca.github.io/pica/demo/ "title text!")
 
 Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+
+## 段落
+
+pm2 是基于node的进程管理工具，利于pm2可以很方便的管理启动进程，比如性能监控，自动重启等功能。pm2 是基于node的进程管理工具，利于pm2可以很方便的管理启动进程，比如性能监控，自动重启等功能。pm2 是基于node的进程管理工具，利于pm2可以很方便的管理启动进程，比如性能监控，自动重启等功能。
 
 
 ## Images

@@ -12,7 +12,7 @@ import tasklists from 'markdown-it-task-lists'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
 import styles from './Preview.module.scss'
-
+import classNames from 'classnames'
 const mdParser = new MarkdownIt({
     html: true,
     linkify: true,
@@ -37,11 +37,28 @@ const mdParser = new MarkdownIt({
     .use(mark)
     .use(tasklists)
 
+let themeStyle = document.getElementById("theme-style");
+if(!themeStyle){
+    themeStyle=document.createElement("style");
+    themeStyle.id = "theme-style";
+    document.head.appendChild(themeStyle);
+}
+
 function Preview({context}) {
+    themeStyle.textContent = `.${styles.preview}{
+        // background:red;
+    }`
+
+    const boxClass = classNames({
+        [styles.pc]:true,
+        // [styles.mobile]:true
+    })
 
     return (
-        <section className={styles.preview}>
-            <div dangerouslySetInnerHTML={{__html:mdParser.render(context)}}></div>
+        <section className={boxClass}>
+            <section className={styles.preview}>
+                <div dangerouslySetInnerHTML={{__html:mdParser.render(context)}}></div>
+            </section>
         </section>
     );
 }

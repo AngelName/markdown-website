@@ -26,7 +26,7 @@ const {Content} = Layout;
 export default function (props) {
     return (
         <Content {...props}>
-            <div style={{minHeight:'calc(100vh - 80px)'}}>
+            <div >
                 <Switch>
                     {routerConfig.map(({path,component})=><Route key={path} path={path}>{component}</Route>)}
                 </Switch>

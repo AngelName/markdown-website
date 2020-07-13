@@ -34,9 +34,11 @@ function OnlinePreview(props) {
                 <Row>
                     <Menu editor={editor}/>
                </Row>
-                <Row style={{height:'calc(100vh - 84px)'}}>
-                    <ColLayout><EditorElement ref={textAreaRef} onChange={(e)=>setContext(e.currentTarget.value)} context={context}/></ColLayout>
-                    <ColLayout><Preview context={context}/></ColLayout>
+                <Row >
+                    <ColLayout style={{height:'calc(100vh - 180px)',overflow:'auto',  borderRight: "1px solid #ccc"
+                    }}>
+                        <EditorElement ref={textAreaRef} editor={editor} onChange={(e)=>setContext(e.currentTarget.value)} context={context}/></ColLayout>
+                    <ColLayout style={{height:'calc(100vh - 180px)',overflow:'auto'}}><Preview context={context}/></ColLayout>
                 </Row>
             </section>
     );

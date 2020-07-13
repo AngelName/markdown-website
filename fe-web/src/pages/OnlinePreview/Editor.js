@@ -8,10 +8,14 @@
  * @param {HTMLTextAreaElement} node
  * @constructor
  */
-function Editor(node,onChange) {
+function Editor(node, onChange) {
     this.node = node;
     this.command = {};
     this.event = {onChange};
+    // TODO: 修改栈道
+    this.undoStash = [];
+    this.redoStash = [];
+
     this._init();
 }
 
@@ -29,6 +33,14 @@ Editor.prototype.moveCursor = function moveCursor(start, end) {
     } else {
         node.selectionEnd = end;
     }
+}
+
+Editor.prototype.onChange = function onChange(fn){
+    this.node.addEventListener("change", fn)
+}
+
+Editor.prototype.onInput = function onInput(fn){
+    this.node.addEventListener("input", fn)
 }
 
 /**
@@ -59,20 +71,25 @@ Editor.prototype.setText = function (text) {
  * @param cb
  * @return Editor
  */
-Editor.prototype.editLineText = function editLineText(prefix, cb = (text) => text) {
-    const [start] = this.getCurrentSelectionPosition();
+Editor.prototype.editLineText = function editLineText(prefix, cb = (text) => ({text,offset:text.length})) {
+    const [start,end] = this.getCurrentSelectionPosition();
     const text = this.getText();
-    let lineStart = text.lastIndexOf("\n", start)+1;
-    let lineEnd = text.indexOf("\n", lineStart);
+    let lineStart = text.lastIndexOf("\n", start);
+    let lineEnd = text.indexOf("\n", end);
+    if(lineStart === -1){
+        lineStart = 0;
+    }
     if (lineEnd === -1) {
         lineEnd = text.length
     }
-    let lineText = text.substr(lineStart, lineEnd);
+
+    let lineText = text.substring(lineStart, lineEnd);
+    let {text:contentText,offset:textOffset} = cb(lineText);
     // 保持光标在行尾部
-    const cursorOffset = start + prefix.length + lineText.length;
-    const newText = text.substr(0, lineStart) + prefix + cb(lineText)
+    const cursorOffset = lineStart + prefix.length + textOffset;
+    const newText = text.substring(0, lineStart) + prefix + contentText + text.substring(lineEnd)
     this.setText(newText);
-    this.moveCursor(start + cursorOffset);
+    this.moveCursor(cursorOffset);
     return this;
 }
 
@@ -139,6 +156,8 @@ Editor.prototype.registerCoreCommand = function () {
         h5: "##### ",
         h6: "###### ",
         blockquote: "> ",
+        image: "![imageTitle](http://imageurl/xx.png)",
+        link: "[link](https://www.baidu.com)",
     }
     const inlineRules = {
         bold: "**",
@@ -154,6 +173,40 @@ Editor.prototype.registerCoreCommand = function () {
     for (let ruleName in inlineRules) {
         this.registerCommand(ruleName, () => {
             this.editInlineText(inlineRules[ruleName])
+        })
+    }
+
+    const moreRowRules = {
+        code:(text)=>{
+            return {
+                text:`\n\`\`\`\n${text}\n\`\`\`\n`,
+                offset:5+text.length,
+            }
+        },
+        table:(text)=> {
+            let result = text+ "\n"+"header 1 | header 2\n" +
+                "---|---\n" +
+                "row 1 col 1 | row 1 col 2\n" +
+                "row 2 col 1 | row 2 col 2";
+            return {
+                text:result,
+                offset:result.length
+            }
+        },
+        list:(text)=>{
+            let result = "- "+ text.replace(/\n/g,"\n- ");
+            return {
+                text:result,
+                offset:result.length
+            }
+        }
+    }
+
+    for (let ruleName in moreRowRules) {
+        this.registerCommand(ruleName, () => {
+            this.editLineText("",(text)=>{
+               return  moreRowRules[ruleName](text);
+            })
         })
     }
 }
