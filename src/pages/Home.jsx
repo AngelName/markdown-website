@@ -1,7 +1,6 @@
-import React, {createRef, useRef, useState} from 'react';
+import React from 'react';
 import './Home.sass'
 import Icon from "../components/Icon";
-import { useIntersection } from 'react-use';
 import { Row} from "antd";
 import PcCard from "../components/PcCard";
 import MobileCard from "../components/MobileCard";
@@ -28,12 +27,6 @@ function FirstPage() {
 }
 
 function ColLayout({children}) {
-    let layout = {
-        xs:24,
-        sm:24,
-        md:24,
-        lg:12,
-    }
     return   <Col className={styles.col} style={{textAlign:'center'}}>
         {children}
     </Col>;
@@ -77,7 +70,7 @@ function SinglePage({children,...otherProps}){
         {children}
     </div>
 }
-function Home(props) {
+function Home() {
     return (
         <main>
         <FirstPage/>

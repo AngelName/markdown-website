@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Icon from "./Icon";
 import {Divider} from "antd";
 import ThemeIcon from "./ThemeIcon";

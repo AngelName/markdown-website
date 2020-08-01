@@ -184,10 +184,11 @@ Editor.prototype.registerCoreCommand = function () {
             }
         },
         table:(text)=> {
-            let result = text+ "\n"+"header 1 | header 2\n" +
-                "---|---\n" +
-                "row 1 col 1 | row 1 col 2\n" +
-                "row 2 col 1 | row 2 col 2";
+            let result = `${text}
+header 1 | header 2
+---|---
+row 1 col 1 | row 1 col 2
+row 2 col 1 | row 2 col 2`;
             return {
                 text:result,
                 offset:result.length

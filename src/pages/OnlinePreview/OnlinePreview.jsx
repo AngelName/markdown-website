@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Preview from "./Preview";
-import {Row, Col} from "antd";
+import {Row} from "antd";
 import ColLayout from "../../components/Col";
 import Menu from "./Menu";
 import EditorElement from "./EditorElemet";

@@ -13,10 +13,10 @@ const Sponsor = () => {
         <section style={{maxWidth: '1280px', margin: '0 auto', background: '#fff', width: '100%',height:'100%'}}>
             <Row style={{paddingTop: '5vh'}}>
                 <Col {...layout} lg={10} style={{textAlign: 'center'}}>
-                    <img src={qcode}></img>
+                    <img alt="二维码" src={qcode}></img>
                 </Col>
                 <Col {...layout} lg={10} style={{textAlign: 'center',alignSelf: 'center'}}>
-                    <p>如果你感觉它真正的帮助到了您，希望您能给我一些💰上的鼓励。</p>
+                    <p>如果你感觉它真正的帮助到了您，希望您能给我一些<span role="img" aria-label="money">💰</span>上的鼓励。</p>
                     <p>给我github点一个start</p>
                 </Col>
             </Row>

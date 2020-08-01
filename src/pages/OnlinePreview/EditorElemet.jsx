@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './style.module.sass';
-import Editor from "./Editor";
 import hljs from 'highlight.js'
 /**
  * @param onChange
