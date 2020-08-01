@@ -28,5 +28,17 @@ jobs:
       
     - run: npm run build 
     
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2.1.1
+      with:
+        # Build directory to deploy
+        build_dir: build
+        # The committer name and email address
+        committer: yishidixiashang@gmail.com
+        # The author name and email address
+        author: ci
+        # Commit message
+        commit_message: deploy
+       
     
 
