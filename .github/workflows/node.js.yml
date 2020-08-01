@@ -38,6 +38,7 @@ jobs:
         author: ci
         # Commit message
         commit_message: deploy
-       
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
 
