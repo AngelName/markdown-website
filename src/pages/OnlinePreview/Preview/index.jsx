@@ -13,6 +13,8 @@ import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-light.css";
 import classNames from "classnames";
 import styles from "./index.module.sass";
+import { useEffect } from "react";
+import defaultStyle from "./defaultStyle";
 const mdParser = new MarkdownIt({
   html: true,
   linkify: true,
@@ -43,14 +45,29 @@ if (!themeStyle) {
   document.head.appendChild(themeStyle);
 }
 
+function getPreviewStyle() {
+  let mkstyle = document.getElementById("mk-style");
+  if (!mkstyle) {
+    mkstyle = document.createElement("style");
+    mkstyle.id = "mk-style";
+    mkstyle.textContent = defaultStyle;
+    document.head.appendChild(mkstyle);
+  }
+  return mkstyle;
+}
+
 function Preview({ code, previewMode }) {
   const boxClass = classNames(styles.common, {
     [styles.mobile]: previewMode === "mobile",
     [styles.pc]: previewMode === "pc",
   });
 
+  useEffect(() => {
+    getPreviewStyle();
+  }, []);
+
   return (
-    <section className={boxClass}>
+    <section id="make" className={boxClass}>
       <div dangerouslySetInnerHTML={{ __html: mdParser.render(code) }}></div>
     </section>
   );

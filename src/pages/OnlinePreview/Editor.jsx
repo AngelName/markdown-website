@@ -102,7 +102,7 @@ let command = {
       if (this.getDoc().getSelection().indexOf("\n") > 0) {
         this.insertAround("```\r\n", "\r\n```");
       } else {
-        this.insertAround("```", "```");
+        this.insertAround("`", "`");
       }
     },
   },
@@ -111,7 +111,7 @@ for (let com in command) {
   CM.prototype[com] = command[com].action;
 }
 
-function Editor({ code, mode = "css", onChange, codeMirror }, ref) {
+function Editor({ code, mode = "markdown", onChange, codeMirror }, ref) {
   return (
     <CodeMirror
       ref={ref}

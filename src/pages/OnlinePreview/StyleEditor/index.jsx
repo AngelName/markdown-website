@@ -30,6 +30,7 @@ var ExcludedIntelliSenseTriggerKeys = {
   "40": "down",
   "45": "insert",
   "46": "delete",
+  "51": "#",
   "91": "left window key",
   "92": "right window key",
   "93": "select",
@@ -61,23 +62,31 @@ var ExcludedIntelliSenseTriggerKeys = {
   "220": "backslash",
   "222": "quote",
 };
-
-export default function Editor({ code, mode = "css", onChange }) {
+for (let key = 0; key <= 9; key++) {
+  ExcludedIntelliSenseTriggerKeys[`${key}`] = key;
+}
+export default function StyleEditor({ code, mode = "css", onChange }) {
   const codeMirror = useRef();
   useEffect(() => {
     if (codeMirror.current) {
       const { editor, codemirror } = codeMirror.current;
-      console.log(codeMirror.current);
       editor.on("keyup", function (editor, event) {
         if (
           !editor.state.completionActive &&
           !ExcludedIntelliSenseTriggerKeys[
             (event.keyCode || event.which).toString()
-          ]
+          ] &&
+          !ExcludedIntelliSenseTriggerKeys[event.key.toString()]
         ) {
-          codemirror.commands.autocomplete(editor, null, {
-            completeSingle: false,
-          });
+          var doc = editor.getDoc();
+          var { line } = doc.getCursor();
+          var lineText = doc.getLine(line);
+          if (lineText && !/#|\(|\)/g.test(lineText)) {
+            console.log(lineText);
+            codemirror.commands.autocomplete(editor, null, {
+              completeSingle: false,
+            });
+          }
         }
       });
       console.log(codeMirror.current);
@@ -86,14 +95,11 @@ export default function Editor({ code, mode = "css", onChange }) {
   return (
     <CodeMirror
       ref={codeMirror}
-      value={code}
-      onChange={(editor) => {
-        onChange(editor.getDoc().getValue());
-      }}
+      height="calc(100vh - 64px - 42px)"
       options={{
         theme: "monokai",
         keyMap: "sublime",
-        mode: "style",
+        mode: "css",
       }}
     />
   );

@@ -7,7 +7,7 @@
   height: 40vmin;
   pointer-events: none;
 }
-*{
+* {
   box-sizing: border-box;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -38,4 +38,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
 }

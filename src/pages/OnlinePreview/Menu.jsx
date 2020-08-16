@@ -1,6 +1,7 @@
 import React from "react";
 import Icon, { MobileIcon, PcIcon, ThemeIcon } from "./Icon";
 import { Divider } from "antd";
+import { panelType } from ".";
 
 const head = [1, 2, 3, 4, 5, 6].map((item) => ({
   icon: `h${item}`,
@@ -47,7 +48,7 @@ const menuGroup = {
     {
       icon: "list",
       command: "unorderedList",
-      title: "无须列表",
+      title: "无序列表",
     },
     {
       icon: "order-list",
@@ -70,10 +71,17 @@ function objMap(obj, fn) {
   return result;
 }
 
-function Menu({ codeMirror, previewMode, setPreviewMode }) {
-  const renderIcon = ({ icon, command }, index) => {
+function Menu({
+  codeMirror,
+  previewMode,
+  editorPanel,
+  setPreviewMode,
+  setEditorPanel,
+}) {
+  const renderIcon = ({ icon, command, title }, index) => {
     return (
       <Icon
+        title={title}
         key={icon}
         onClick={() => {
           if (codeMirror.current) {
@@ -87,6 +95,7 @@ function Menu({ codeMirror, previewMode, setPreviewMode }) {
   };
   return (
     <div
+      className="clearfix"
       style={{
         background: "#fff",
         width: "100%",
@@ -104,11 +113,20 @@ function Menu({ codeMirror, previewMode, setPreviewMode }) {
         );
       })}
       <div style={{ float: "right" }}>
-        <Icon>
+        <Icon
+          onClick={() => {
+            if (editorPanel === panelType.md) {
+              setEditorPanel(panelType.theme);
+            } else {
+              setEditorPanel(panelType.md);
+            }
+          }}
+        >
           <ThemeIcon />
         </Icon>
         <Divider type={"vertical"} />
         <Icon
+          title="PC端预览"
           active={previewMode === "pc"}
           onClick={() => {
             setPreviewMode("pc");
@@ -117,6 +135,7 @@ function Menu({ codeMirror, previewMode, setPreviewMode }) {
           <PcIcon />
         </Icon>
         <Icon
+          title="移动端预览"
           active={previewMode === "mobile"}
           onClick={() => {
             setPreviewMode("mobile");
