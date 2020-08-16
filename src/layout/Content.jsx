@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Theme from "../pages/Theme";
 import Question from "../pages/Question";
 import Sponsor from "../pages/Sponsor";
-import OnlinePreview from "../pages/OnlinePreview/OnlinePreview";
+import OnlinePreview from "../pages/OnlinePreview";
 const routerConfig = [{
     path:"/theme",
     component:<Theme/>,
