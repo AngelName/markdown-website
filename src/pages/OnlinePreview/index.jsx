@@ -5,7 +5,6 @@ import Menu from "./Menu";
 import Preview from "./Preview";
 import StyleEditor from "./StyleEditor";
 import { useState } from "react";
-import styles from "./index.module.sass";
 import EditorPanel from "./EditorPanel";
 
 export const panelType = {
