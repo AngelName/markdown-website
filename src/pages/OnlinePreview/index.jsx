@@ -6,6 +6,7 @@ import Preview from "./Preview";
 import StyleEditor from "./StyleEditor";
 import { useState } from "react";
 import EditorPanel from "./EditorPanel";
+import { a as defaultStyle } from "./Preview/defaultStyle";
 
 export const panelType = {
   md: 0,
@@ -17,6 +18,7 @@ function OnlinePreview() {
   const [previewMode, setPreviewMode] = useState("pc");
   const codeMirror = useRef();
   const [editorPanel, setEditorPanel] = useState(panelType.md);
+  const [currentStyle, setCurrentStyle] = useState(defaultStyle);
   return (
     <>
       <Row>
@@ -43,7 +45,8 @@ function OnlinePreview() {
             <StyleEditor
               ref={codeMirror}
               codeMirror={codeMirror}
-              onChange={setCode}
+              code={currentStyle.toString()}
+              onChange={setCurrentStyle}
             ></StyleEditor>
           </EditorPanel>
           {/* <EditorPanel active={editorPanel === panelType.theme}>
@@ -51,7 +54,7 @@ function OnlinePreview() {
           </EditorPanel> */}
         </Col>
         <Col span={12}>
-          <Preview code={code} previewMode={previewMode} />
+          <Preview code={code} style={currentStyle} previewMode={previewMode} />
         </Col>
       </Row>
     </>

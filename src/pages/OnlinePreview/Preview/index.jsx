@@ -14,7 +14,6 @@ import "highlight.js/styles/atom-one-light.css";
 import classNames from "classnames";
 import styles from "./index.module.sass";
 import { useEffect } from "react";
-import defaultStyle from "./defaultStyle";
 const mdParser = new MarkdownIt({
   html: true,
   linkify: true,
@@ -45,26 +44,28 @@ if (!themeStyle) {
   document.head.appendChild(themeStyle);
 }
 
-function getPreviewStyle() {
+function getPreviewStyle(style) {
   let mkstyle = document.getElementById("mk-style");
   if (!mkstyle) {
     mkstyle = document.createElement("style");
     mkstyle.id = "mk-style";
-    mkstyle.textContent = defaultStyle;
+    mkstyle.textContent = style;
     document.head.appendChild(mkstyle);
+  } else {
+    mkstyle.textContent = style;
   }
   return mkstyle;
 }
 
-function Preview({ code, previewMode }) {
+function Preview({ code, previewMode, style }) {
   const boxClass = classNames(styles.common, {
     [styles.mobile]: previewMode === "mobile",
     [styles.pc]: previewMode === "pc",
   });
 
   useEffect(() => {
-    getPreviewStyle();
-  }, []);
+    getPreviewStyle(style);
+  }, [style]);
 
   return (
     <section id="make" className={boxClass}>

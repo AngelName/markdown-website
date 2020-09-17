@@ -1,4 +1,4 @@
-export default `
+export const a = `
 /*全局属性*/
 #make {
   font-size: 16px;
