@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import CM from "codemirror";
 import "codemirror/addon/display/autorefresh";
@@ -10,6 +10,7 @@ import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/css/css";
 import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/hint/css-hint";
+import { PreviewContext } from "..";
 CM.prototype.insertAround = function (start, end) {
   var doc = this.getDoc();
   var cursor = doc.getCursor();
@@ -44,17 +45,6 @@ CM.prototype.insertBefore = function (insertion, cursorOffset) {
   this.focus();
 };
 let command = {
-  mainHeader: {
-    action: function () {
-      console.log(this);
-      this.insertBefore("## ", 3);
-    },
-  },
-  subHeader: {
-    action: function () {
-      this.insertBefore("### ", 4);
-    },
-  },
   del: {
     action: function () {
       this.insertAround("~~", "~~");
@@ -99,7 +89,9 @@ let command = {
   code: {
     name: "code",
     action: function () {
-      if (this.getDoc().getSelection().indexOf("\n") > 0) {
+      let selection = this.getDoc().getSelection();
+      console.log(this.getDoc());
+      if (selection.indexOf("\n") > 0) {
         this.insertAround("```\r\n", "\r\n```");
       } else {
         this.insertAround("`", "`");
@@ -107,23 +99,32 @@ let command = {
     },
   },
 };
+for (let i = 1; i <= 6; i++) {
+  command[`h${i}`] = {
+    action: function () {
+      this.insertBefore(`${"#".replace(i)}`, i);
+    },
+  };
+}
 for (let com in command) {
   CM.prototype[com] = command[com].action;
 }
 
-function Editor({ code, mode = "markdown", onChange, codeMirror }, ref) {
+function Editor(_, ref) {
+  const { state, dispatch } = useContext(PreviewContext);
+  const { currentCode } = state;
   return (
     <CodeMirror
       ref={ref}
-      value={code}
+      value={currentCode}
       onChange={(editor) => {
-        onChange(editor.getDoc().getValue());
+        dispatch({ type: "currentCode", payload: editor.getDoc().getValue() });
       }}
       height="calc(100vh - 64px - 42px)"
       options={{
         theme: "monokai",
         keyMap: "sublime",
-        mode,
+        mode: "markdown",
       }}
     />
   );

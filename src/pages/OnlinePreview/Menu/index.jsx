@@ -1,8 +1,25 @@
 import React from "react";
-import Icon, { MobileIcon, PcIcon, ThemeIcon } from "./Icon";
+import Icon, { MobileIcon, PcIcon } from "../Icon";
 import { Divider } from "antd";
-import { panelType } from ".";
+import { SkinTwoTone, ToolTwoTone, CopyOutlined } from "@ant-design/icons";
+import { panelType, PreviewContext } from "..";
+import { useContext } from "react";
+import copy from "../../../utils/copy";
+import parseStyleToInlineStyle from "../../../utils/parseStyleToInlineStyle";
+import mdParser from "../../../utils/mdParse";
+import { replaceHighLightStyle } from "../../../utils/replaceStyle";
+let highlightStyle = "";
+const fetchStyles = async () => {
+  await fetch(process.env.PUBLIC_URL + "/highlight/index.json");
+  const style = await fetch(
+    process.env.PUBLIC_URL + "/highlight/styles/zenburn.css"
+  );
 
+  highlightStyle = await style.text();
+  replaceHighLightStyle(highlightStyle);
+  console.log(highlightStyle);
+};
+fetchStyles();
 const head = [1, 2, 3, 4, 5, 6].map((item) => ({
   icon: `h${item}`,
   command: `h${item}`,
@@ -71,21 +88,24 @@ function objMap(obj, fn) {
   return result;
 }
 
-function Menu({
-  codeMirror,
-  previewMode,
-  editorPanel,
-  setPreviewMode,
-  setEditorPanel,
-}) {
+function Menu() {
+  const { state, dispatch } = useContext(PreviewContext);
+  const {
+    codeEditorRef,
+    currentPreviewMode,
+    editorPanelModel,
+    choiceTheme,
+    currentCode,
+    currentStyle,
+  } = state;
   const renderIcon = ({ icon, command, title }, index) => {
     return (
       <Icon
         title={title}
         key={icon}
         onClick={() => {
-          if (codeMirror.current) {
-            const { editor } = codeMirror.current;
+          if (codeEditorRef?.current) {
+            const { editor } = codeEditorRef.current;
             editor[command]();
           }
         }}
@@ -115,31 +135,50 @@ function Menu({
       <div style={{ float: "right" }}>
         <Icon
           onClick={() => {
-            if (editorPanel === panelType.md) {
-              setEditorPanel(panelType.theme);
+            const data = parseStyleToInlineStyle(
+              `<section
+                  id="make"
+                >${mdParser.render(currentCode)}
+                </section>`,
+              highlightStyle + currentStyle
+            );
+            console.log(data);
+            copy(data);
+          }}
+        >
+          <CopyOutlined />
+        </Icon>
+        <Icon
+          onClick={() =>
+            dispatch({ type: "choiceTheme", payload: !choiceTheme })
+          }
+        >
+          <SkinTwoTone />
+        </Icon>
+        <Icon
+          onClick={() => {
+            dispatch({ type: "choiceTheme", payload: false });
+            if (editorPanelModel === panelType.md) {
+              dispatch({ type: "editorPanelModel", payload: panelType.style });
             } else {
-              setEditorPanel(panelType.md);
+              dispatch({ type: "editorPanelModel", payload: panelType.md });
             }
           }}
         >
-          <ThemeIcon />
+          <ToolTwoTone />
         </Icon>
         <Divider type={"vertical"} />
         <Icon
           title="PC端预览"
-          active={previewMode === "pc"}
-          onClick={() => {
-            setPreviewMode("pc");
-          }}
+          active={currentPreviewMode === "pc"}
+          onClick={() => dispatch({ type: "previewPlane", payload: "pc" })}
         >
           <PcIcon />
         </Icon>
         <Icon
           title="移动端预览"
-          active={previewMode === "mobile"}
-          onClick={() => {
-            setPreviewMode("mobile");
-          }}
+          active={currentPreviewMode === "mobile"}
+          onClick={() => dispatch({ type: "previewMode", payload: "mobile" })}
         >
           <MobileIcon />
         </Icon>

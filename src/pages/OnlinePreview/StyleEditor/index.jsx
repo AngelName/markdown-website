@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import "codemirror/addon/display/autorefresh";
 import "codemirror/addon/comment/comment";
@@ -9,6 +9,7 @@ import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/css/css";
 import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/hint/css-hint";
+import { PreviewContext } from "..";
 
 var ExcludedIntelliSenseTriggerKeys = {
   8: "backspace",
@@ -65,11 +66,12 @@ var ExcludedIntelliSenseTriggerKeys = {
 for (let key = 0; key <= 9; key++) {
   ExcludedIntelliSenseTriggerKeys[`${key}`] = key;
 }
-export default function StyleEditor({ code = "", mode = "css", onChange }) {
-  const codeMirror = useRef();
+function StyleEditor(_, ref) {
+  const { state, dispatch } = useContext(PreviewContext);
+  const { currentStyle } = state;
   useEffect(() => {
-    if (codeMirror.current) {
-      const { editor, codemirror } = codeMirror.current;
+    if (ref.current) {
+      const { editor, codemirror } = ref.current;
       editor.on("keyup", function (editor, event) {
         if (
           !editor.state.completionActive &&
@@ -82,23 +84,21 @@ export default function StyleEditor({ code = "", mode = "css", onChange }) {
           var { line } = doc.getCursor();
           var lineText = doc.getLine(line);
           if (lineText && !/#|\(|\)/g.test(lineText)) {
-            console.log(lineText);
             codemirror.commands.autocomplete(editor, null, {
               completeSingle: false,
             });
           }
         }
       });
-      console.log(codeMirror.current);
     }
-  }, []);
+  }, [ref]);
   return (
     <CodeMirror
-      ref={codeMirror}
-      value={code}
-      onChange={(editor) => {
-        onChange(editor.getDoc().getValue());
-      }}
+      ref={ref}
+      value={currentStyle}
+      onChange={(editor) =>
+        dispatch({ type: "currentStyle", payload: editor.getDoc().getValue() })
+      }
       height="calc(100vh - 64px - 42px)"
       options={{
         theme: "monokai",
@@ -108,3 +108,4 @@ export default function StyleEditor({ code = "", mode = "css", onChange }) {
     />
   );
 }
+export default React.forwardRef(StyleEditor);
