@@ -5,6 +5,7 @@ import "codemirror/addon/display/autorefresh";
 import "codemirror/addon/comment/comment";
 import "codemirror/addon/edit/matchbrackets";
 import "codemirror/keymap/sublime";
+import 'codemirror/theme/idea.css';
 import "codemirror/theme/monokai.css";
 import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/css/css";

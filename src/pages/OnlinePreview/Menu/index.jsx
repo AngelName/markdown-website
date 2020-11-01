@@ -1,6 +1,6 @@
 import React from "react";
 import Icon, { MobileIcon, PcIcon } from "../Icon";
-import { Divider } from "antd";
+import { Divider, message } from "antd";
 import { SkinTwoTone, ToolTwoTone, CopyOutlined } from "@ant-design/icons";
 import { panelType, PreviewContext } from "..";
 import { useContext } from "react";
@@ -142,19 +142,20 @@ function Menu() {
                 </section>`,
               highlightStyle + currentStyle
             );
-            console.log(data);
             copy(data);
+            message.success("成功复制到剪贴板")
           }}
         >
           <CopyOutlined />
         </Icon>
-        <Icon
+        {/* TODO theme */}
+        {/* <Icon
           onClick={() =>
             dispatch({ type: "choiceTheme", payload: !choiceTheme })
           }
         >
           <SkinTwoTone />
-        </Icon>
+        </Icon> */}
         <Icon
           onClick={() => {
             dispatch({ type: "choiceTheme", payload: false });

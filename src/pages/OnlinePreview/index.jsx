@@ -31,7 +31,7 @@ function reducer(state, action) {
     case action.type.indexOf("init") !== -1:
       console.debug("init..." + action.type);
       return { ...state, ...action.payload };
-    case "currentPreviewMode":
+    case "previewMode":
       return { ...state, currentPreviewMode: action.payload };
     case "choiceTheme":
       return { ...state, choiceTheme: action.payload };
@@ -64,9 +64,9 @@ function OnlinePreview() {
           <Menu />
         </Col>
       </Row>
-      <EditorPanel style={{ zIndex: "120" }} active={choiceTheme}>
+      {/* <EditorPanel style={{ zIndex: "120" }} active={choiceTheme}>
         <ThemePreview />
-      </EditorPanel>
+      </EditorPanel> */}
       <Row>
         <Col span={12}>
           <EditorPanel active={editorPanelModel === panelType.md}>

@@ -1,6 +1,4 @@
 import React from 'react'
-import {  Avatar } from 'antd'
-import Meta from 'antd/lib/card/Meta'
 import CardWrapper from '@/components/Card'
 import Link from 'next/link'
 

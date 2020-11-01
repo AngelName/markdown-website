@@ -10,7 +10,6 @@ export const a = `
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
-  font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 /*段落*/
@@ -55,24 +54,6 @@ export const a = `
   font-size: 16px;
 }
 
-#make h1 .prefix,
-#make h2 .prefix,
-#make h3 .prefix,
-#make h4 .prefix,
-#make h5 .prefix,
-#make h6 .prefix {
-  display: none;
-}
-
-#make h1 .suffix
-#make h2 .suffix,
-#make h3 .suffix,
-#make h4 .suffix,
-#make h5 .suffix,
-#make h6 .suffix {
-  display: none;
-}
-
 /*列表*/
 #make ul,
 #make ol {
@@ -97,7 +78,6 @@ export const a = `
   margin-bottom: 5px;
   line-height: 26px;
   text-align: left;
-  color: rgb(1,1,1); /* 只要是纯黑色微信编辑器就会把color这个属性吞掉。。。*/
   font-weight: 500;
 }
 
