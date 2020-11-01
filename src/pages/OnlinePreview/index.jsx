@@ -6,7 +6,6 @@ import Preview from "./Preview";
 import StyleEditor from "./StyleEditor";
 import EditorPanel from "./EditorPanel";
 import { a as defaultStyle } from "./Preview/defaultStyle";
-import ThemePreview from "./ThemePreview";
 import { useReducer } from "react";
 
 export const panelType = {
@@ -43,7 +42,7 @@ function reducer(state, action) {
 }
 export const PreviewContext = React.createContext({
   state: initialState,
-  dispatch: (/**@type {{type:string,payload:any}}*/ action) => {},
+  dispatch: () => {},
 });
 
 function OnlinePreview() {
@@ -55,7 +54,7 @@ function OnlinePreview() {
     codeEditorRef,
     styleEditorRef,
   });
-  const { editorPanelModel, choiceTheme } = state;
+  const { editorPanelModel } = state;
 
   return (
     <PreviewContext.Provider value={{ state, dispatch }}>

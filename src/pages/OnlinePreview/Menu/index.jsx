@@ -1,7 +1,7 @@
 import React from "react";
 import Icon, { MobileIcon, PcIcon } from "../Icon";
 import { Divider, message } from "antd";
-import { SkinTwoTone, ToolTwoTone, CopyOutlined } from "@ant-design/icons";
+import { ToolTwoTone, CopyOutlined } from "@ant-design/icons";
 import { panelType, PreviewContext } from "..";
 import { useContext } from "react";
 import copy from "../../../utils/copy";
@@ -94,11 +94,10 @@ function Menu() {
     codeEditorRef,
     currentPreviewMode,
     editorPanelModel,
-    choiceTheme,
     currentCode,
     currentStyle,
   } = state;
-  const renderIcon = ({ icon, command, title }, index) => {
+  const renderIcon = ({ icon, command, title }) => {
     return (
       <Icon
         title={title}
