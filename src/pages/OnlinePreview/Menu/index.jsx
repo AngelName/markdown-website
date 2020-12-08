@@ -12,7 +12,7 @@ let highlightStyle = "";
 const fetchStyles = async () => {
   await fetch(process.env.PUBLIC_URL + "/highlight/index.json");
   const style = await fetch(
-    process.env.PUBLIC_URL + "/highlight/styles/zenburn.css"
+    process.env.PUBLIC_URL + "/highlight/styles/atom-one-dark.css"
   );
 
   highlightStyle = await style.text();

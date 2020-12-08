@@ -155,14 +155,10 @@ export const a = `
   margin-bottom: 10px;
 }
 #make pre code {
-  display: -webkit-box;
   font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
   border-radius: 0px;
-  font-size: 12px;
+  font-size: 14px;
   -webkit-overflow-scrolling: touch;
-}
-#make pre code span {
-  line-height: 26px;
 }
 
 /*行内代码*/

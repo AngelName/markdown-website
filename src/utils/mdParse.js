@@ -16,9 +16,15 @@ const mdParser = new MarkdownIt({
   typographer: true,
   highlight: function (str, lang) {
     try {
-      return `<pre class="hljs">${
+      if (lang) { 
+        return `<pre class="hljs"><code>${
+        hljs.highlight(lang,str).value
+      }</code></pre>`;
+      }
+      console.log(str)
+      return `<pre class="hljs"><code>${
         hljs.highlightAuto(str).value
-      }<code></code></pre>`;
+      }</code></pre>`;
     } catch (e) {
       console.error(e);
     }

@@ -11,6 +11,7 @@ import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/css/css";
 import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/hint/css-hint";
+import "./one-drak-theme.css";
 import { PreviewContext } from "..";
 CM.prototype.insertAround = function (start, end) {
   var doc = this.getDoc();
@@ -91,8 +92,12 @@ let command = {
     name: "code",
     action: function () {
       let selection = this.getDoc().getSelection();
-      console.log(this.getDoc());
-      if (selection.indexOf("\n") > 0) {
+      console.log(selection, 'fff');
+      if (selection === "") { 
+        this.insertAround("```\r\n", "\r\n```");
+        return;
+      }
+      if (selection.indexOf("\n") > 0 ) {
         this.insertAround("```\r\n", "\r\n```");
       } else {
         this.insertAround("`", "`");
@@ -123,7 +128,7 @@ function Editor(_, ref) {
       }}
       height="calc(100vh - 64px - 42px)"
       options={{
-        theme: "monokai",
+        theme: "one-dark",
         keyMap: "sublime",
         mode: "markdown",
       }}
