@@ -15,14 +15,14 @@ export default function (props) {
     //     title: "上传主题",
     //     url: "question",
     // },
-    {
-      title: "常见问题",
-      url: "question",
-    },
-    {
-      title: "赞助 🎉",
-      url: "sponsor",
-    },
+    // {
+    //   title: "常见问题",
+    //   url: "question",
+    // },
+    // {
+    //   title: "赞助 🎉",
+    //   url: "sponsor",
+    // },
   ];
   const { pathname } = window.location;
   const hasBoxShadow = pathname === "/";

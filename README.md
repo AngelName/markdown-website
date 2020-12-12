@@ -1,68 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 欢迎来到马克排版
 
-## Available Scripts
+马克排版是一个将 markdown 转换成 html+inline style 的文本
 
-In the project directory, you can run:
+能够进行表情
 
-### `yarn start`
+:)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+支持 markdown-it 的众多插件
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+让我们预览一下内置样式把
 
-### `yarn test`
+# h1 标题
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## h2 标题
 
-### `yarn build`
+### h3 标题
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### h4 标题
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+支持四种标题，因为不建议文章层级过深入
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 链接
 
-### `yarn eject`
+[link](https://www.suxin2017.cn)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# 表格
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| header 1    | header 2    |
+| ----------- | ----------- |
+| row 1 col 1 | row 1 col 2 |
+| row 2 col 1 | row 2 col 2 |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# 列表
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 第一个
+- 第二个
+  - 嵌套
 
-## Learn More
+1. 第一个
+2. 第二个
+   1. 嵌套
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# 列表勾选
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] test
+- [x] check
 
-### Code Splitting
+# 数学表达
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```math
+E = mc^2
+```
 
-### Analyzing the Bundle Size
+# 删除线
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+~~三大噶傻大个~~
 
-### Making a Progressive Web App
+# 粗体
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+**三大噶傻大个**
 
-### Advanced Configuration
+# 斜体
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+_三大噶傻大个_

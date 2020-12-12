@@ -15,7 +15,8 @@ const routerConfig = [{
 },{
     path:"/sponsor",
     component:<Sponsor/>,
-},{
+},
+{
     path:"/online",
     component:<OnlinePreview/>,
 },{
