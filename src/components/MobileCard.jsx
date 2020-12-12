@@ -10,7 +10,7 @@ function MobileCard(props) {
         height: "460px",
         background: "#f3f3f3",
         margin: "0 auto",
-        background: `url(${mobileImg})`,
+        backgroundImage: `url(${mobileImg})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}

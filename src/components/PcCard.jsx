@@ -10,7 +10,7 @@ function PcCard(props) {
         height: "310px",
         background: "#f3f3f3",
         margin: "0 auto",
-        background: `url(${pcImg})`,
+        backgroundImage: `url(${pcImg})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
       }}
